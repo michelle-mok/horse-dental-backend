@@ -1,4 +1,4 @@
-export default function initHorseModel(sequelize, DataTypes) {
+export default function initReportModel(sequelize, DataTypes) {
   return sequelize.define(
     'horse',
     {
@@ -8,18 +8,8 @@ export default function initHorseModel(sequelize, DataTypes) {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      name: {
+      report: {
         type: DataTypes.STRING,
-      },
-      photo: {
-        type: DataTypes.STRING,
-      },
-      mraNumber: {
-        type: DataTypes.STRING,
-      },
-      nextTreatmentDate: {
-        allowNull: false,
-        type: DataTypes.DATE,
       },
       ownerId: {
         allowNull: false,
@@ -29,11 +19,13 @@ export default function initHorseModel(sequelize, DataTypes) {
           key: 'id',
         },
       },
-      warnings: {
-        type: DataTypes.STRING,
-      },
-      problems: {
-        type: DataTypes.STRING,
+      horseId: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+        references: {
+          model: 'horses',
+          key: 'id',
+        },
       },
       createdAt: {
         allowNull: false,

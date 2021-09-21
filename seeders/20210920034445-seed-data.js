@@ -1,78 +1,51 @@
+const faker = require('faker');
+
 module.exports = {
   up: async (queryInterface) => {
-    const ownerData = [
-      {
-        first_name: 'Mickey',
-        last_name: 'Mouse',
-        email: 'mickey@disney.com',
-        address: '11 Main Street, Magic Kingdom',
-        phone_number: '34587512',
-        gst: true,
+    const ownerData = [];
+    
+    for (let i = 0; i < 50; i += 1) {
+      const countries = ['Singapore', 'Hong Kong', 'Australia'];
+      const randomNumber = Math.floor(Math.random() * 3);
+
+      const singleOwner = {
+        first_name: faker.name.firstName(),
+        last_name: faker.name.lastName(),
+        email: faker.internet.email(),
+        address: faker.address.streetAddress(),
+        country: countries[randomNumber],
+        phone_number: faker.phone.phoneNumberFormat(),
+        gst: faker.datatype.boolean(),
         created_at: new Date(),
         updated_at: new Date(),
-      },
-      {
-        first_name: 'Donald',
-        last_name: 'Duck',
-        email: 'donald@disney.com',
-        address: '21 Main Street, Magic Kingdom',
-        phone_number: '89764531',
-        gst: true,
-        created_at: new Date(),
-        updated_at: new Date(),
-      },
-      {
-        first_name: 'Minnie',
-        last_name: 'Mouse',
-        email: 'donald@disney.com',
-        address: '33 Cedar Avenue, Magic Kingdom',
-        phone_number: '12697843',
-        gst: false,
-        created_at: new Date(),
-        updated_at: new Date(),
-      },
-    ];
+      }
+
+      ownerData.push(singleOwner);
+    }
 
     await queryInterface.bulkInsert('owners', ownerData);
 
-    const horseData = [
-      {
-        name: 'Gold Kingdom',
-        mra_number: 'E459',
-        trainer: 'Tan Kah Soon',
-        next_treatment_date: new Date(2021, 5, 20),
-        owner_id: 1,
+    const horseData = [];
+
+    const warnings = ['bites', 'kicks', 'aggressive', 'do not go into box', 'strikes'];
+    const problems = ['parrot mouth', 'tooth decay', 'wave mouth', 'sow mouth', 'caps', 'missing teeth', 'abnormal wear'];
+    const mraNumber = `${faker.random.alpha()}${faker.datatype.number()}`;
+
+    for (let j = 0; j < 100; j += 1) {
+      const randomId = Math.floor((Math.random() * 50) + 1);
+      const singleHorse = {
+        name: faker.random.words(),
+        photo: faker.image.cats(),
+        mra_number: mraNumber,
+        next_treatment_date: faker.date.future(),
+        owner_id: randomId,
+        warnings: warnings[Math.floor(Math.random() * warnings.length)],
+        problems: problems[Math.floor(Math.random() * problems.length)],
         created_at: new Date(),
         updated_at: new Date(),
-      },
-      {
-        name: 'Nowyousee',
-        mra_number: 'E177',
-        trainer: 'Tan Kah Soon',
-        next_treatment_date: new Date(2021, 5, 20),
-        owner_id: 1,
-        created_at: new Date(),
-        updated_at: new Date(),
-      },
-      {
-        name: 'Golden Brilliant',
-        mra_number: 'K155',
-        trainer: 'John O\' Hara',
-        next_treatment_date: new Date(2021, 5, 10),
-        owner_id: 2,
-        created_at: new Date(),
-        updated_at: new Date(),
-      },
-      {
-        name: 'Chevron',
-        mra_number: 'V123',
-        trainer: 'John O\' Hara',
-        next_treatment_date: new Date(2021, 5, 10),
-        owner_id: 3,
-        created_at: new Date(),
-        updated_at: new Date(),
-      },
-    ];
+      };
+      horseData.push(singleHorse);
+    }
 
     await queryInterface.bulkInsert('horses', horseData);
 

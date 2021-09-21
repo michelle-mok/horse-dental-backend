@@ -23,9 +23,13 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
+      country: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
       phone_number: {
         allowNull: false,
-        type: Sequelize.BIGINT,
+        type: Sequelize.STRING,
       },
       gst: {
         allowNull: false,
@@ -52,14 +56,13 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
+      photo: {
+        type: Sequelize.STRING,
+      },
       mra_number: {
         type: Sequelize.STRING,
       },
-      trainer: {
-        type: Sequelize.STRING,
-      },
       next_treatment_date: {
-        allowNull: false,
         type: Sequelize.DATE,
       },
       owner_id: {
@@ -67,6 +70,49 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'owners',
+          key: 'id',
+        },
+      },
+      warnings: {
+        type: Sequelize.STRING,
+      },
+      problems: {
+        type: Sequelize.STRING,
+      },
+      created_at: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+      updated_at: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+    });
+
+    await queryInterface.createTable('reports', {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER,
+      },
+      report: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      owner_id: {
+      allowNull: false,
+      type: Sequelize.INTEGER,
+      references: {
+        model: 'owners',
+        key: 'id',
+        },
+      },
+      horse_id: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'horses',
           key: 'id',
         },
       },
@@ -79,7 +125,7 @@ module.exports = {
         type: Sequelize.DATE,
       },
     });
-
+    
     // await queryInterface.createTable('behaviours', {
     //   id: {
     //     allowNull: false,

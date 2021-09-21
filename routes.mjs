@@ -10,7 +10,7 @@ export default function routes(app) {
 //   const BillsController = initBillsController(db);
 
   app.get('/owners', OwnersController.ownerList);
-//   app.get('/horse-list/:id', HorsesController.horseList);
+  app.get('/ownersHorses/:id', HorsesController.horseList);
 //   app.get('/horse-details/:id', HorsesController.horseDetails);
 //   app.get('/horse-problems', HorsesController.horseProblems);
 //   app.post('/add-new-report', HorsesController.addNewReport);

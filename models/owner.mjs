@@ -8,11 +8,11 @@ export default function initOwnerModel(sequelize, DataTypes) {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      first_name: {
+      firstName: {
         allowNull: false,
         type: DataTypes.STRING,
       },
-      last_name: {
+      lastName: {
         allowNull: false,
         type: DataTypes.STRING,
       },
@@ -24,7 +24,11 @@ export default function initOwnerModel(sequelize, DataTypes) {
         allowNull: false,
         type: DataTypes.STRING,
       },
-      phone_number: {
+      country: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      phoneNumber: {
         allowNull: false,
         type: DataTypes.BIGINT,
       },

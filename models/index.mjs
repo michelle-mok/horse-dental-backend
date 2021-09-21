@@ -3,6 +3,7 @@ import url from 'url';
 import allConfig from '../config/config.js';
 import initHorseModel from './horse.mjs';
 import initOwnerModel from './owner.mjs';
+import initReportModel from './report.mjs';
 
 const env = process.env.NODE_ENV || 'development';
 
@@ -34,9 +35,16 @@ if (env === 'production') {
 
 db.Horse = initHorseModel(sequelize, Sequelize.DataTypes);
 db.Owner = initOwnerModel(sequelize, Sequelize.DataTypes);
+db.Report = initReportModel(sequelize, Sequelize.DataTypes);
 
 db.Owner.hasMany(db.Horse);
 db.Horse.belongsTo(db.Owner); 
+
+db.Owner.hasMany(db.Report);
+db.Report.belongsTo(db.Owner);
+
+db.Horse.hasMany(db.Report);
+db.Report.belongsTo(db.Horse);
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
