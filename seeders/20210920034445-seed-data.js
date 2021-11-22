@@ -6,14 +6,13 @@ module.exports = {
     
     for (let i = 0; i < 50; i += 1) {
       const countries = ['Singapore', 'Hong Kong', 'Australia'];
-      const randomNumber = Math.floor(Math.random() * 3);
 
       const singleOwner = {
         first_name: faker.name.firstName(),
         last_name: faker.name.lastName(),
         email: faker.internet.email(),
         address: faker.address.streetAddress(),
-        country: countries[randomNumber],
+        country: countries[Math.floor(Math.random() * 3)],
         phone_number: faker.phone.phoneNumberFormat(),
         gst: faker.datatype.boolean(),
         created_at: new Date(),
@@ -29,16 +28,15 @@ module.exports = {
 
     const warnings = ['bites', 'kicks', 'aggressive', 'do not go into box', 'strikes'];
     const problems = ['parrot mouth', 'tooth decay', 'wave mouth', 'sow mouth', 'caps', 'missing teeth', 'abnormal wear'];
-    const mraNumber = `${faker.random.alpha()}${faker.datatype.number()}`;
 
-    for (let j = 0; j < 100; j += 1) {
-      const randomId = Math.floor((Math.random() * 50) + 1);
+    for (let j = 0; j < 200; j += 1) {
+      const mraNumber = `${faker.random.alpha().toUpperCase()}${faker.datatype.number()}`;
       const singleHorse = {
         name: faker.random.words(),
         photo: faker.image.cats(),
         mra_number: mraNumber,
-        next_treatment_date: faker.date.future(),
-        owner_id: randomId,
+        location: faker.address.streetAddress(),
+        owner_id: Math.floor((Math.random() * 50) + 1),
         warnings: warnings[Math.floor(Math.random() * warnings.length)],
         problems: problems[Math.floor(Math.random() * problems.length)],
         created_at: new Date(),
@@ -48,6 +46,36 @@ module.exports = {
     }
 
     await queryInterface.bulkInsert('horses', horseData);
+
+    const appointmentData = [];
+
+    for (let j = 1; j <= 180; j += 1) {
+      const futureAppointment = {
+        date: faker.date.future(),
+        appointment_made: faker.datatype.boolean(),
+        horse_id: j,
+        created_at: new Date(),
+        updated_at: new Date(),
+      };
+      appointmentData.push(futureAppointment);
+    }
+
+    for (k = 1; k <= 200; k += 1) {
+      for (let x = 0; x < 5; x += 1) {
+          const pastAppointment = {
+          date: faker.date.past(),
+          appointment_made: faker.datatype.boolean(),
+          horse_id: k,
+          created_at: new Date(),
+          updated_at: new Date(),
+        };
+        appointmentData.push(pastAppointment);
+      }
+    }
+      
+    
+
+    await queryInterface.bulkInsert('appointments', appointmentData);
 
     // const horseOwnerData = [
     //   {

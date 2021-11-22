@@ -2,16 +2,15 @@ export default function initHorsesController(db) {
   // get list of all horses that belong to one owner
   const horseList = async (req, res) => {
     try {
-      const owner = await db.Owner.findOne({
+      const horses = await db.Horse.findAll({
         where: {
-          id: Number(req.params.id),
+          ownerId: Number(req.params.id),
         },
+        include: [{
+          model: db.Appointment
+        }]
       });
-      console.log(owner);
-
-      const horses = await owner.getHorses();
-      console.log('list of horses', horses);
-
+      console.log('horses======', horses);
       res.send({ horses });
     } catch (error) {
       console.log(error);

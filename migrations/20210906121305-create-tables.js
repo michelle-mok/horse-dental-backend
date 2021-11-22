@@ -62,8 +62,9 @@ module.exports = {
       mra_number: {
         type: Sequelize.STRING,
       },
-      next_treatment_date: {
-        type: Sequelize.DATE,
+      location: {
+        allowNull: false,
+        type: Sequelize.STRING,
       },
       owner_id: {
         allowNull: false,
@@ -115,6 +116,37 @@ module.exports = {
           model: 'horses',
           key: 'id',
         },
+      },
+      created_at: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+      updated_at: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+    });
+
+    await queryInterface.createTable('appointments', {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER,
+      },
+      horse_id: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'horses',
+          key: 'id',
+        },
+      },
+      date: {
+        type: Sequelize.DATE,
+      },
+      appointment_made: {
+        type: Sequelize.BOOLEAN,
       },
       created_at: {
         allowNull: false,

@@ -1,6 +1,6 @@
-export default function initHorseModel(sequelize, DataTypes) {
+export default function initAppointmentModel(sequelize, DataTypes) {
   return sequelize.define(
-    'horse',
+    'appointment',
     {
       id: {
         allowNull: false,
@@ -8,32 +8,19 @@ export default function initHorseModel(sequelize, DataTypes) {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      name: {
-        type: DataTypes.STRING,
-      },
-      photo: {
-        type: DataTypes.STRING,
-      },
-      mraNumber: {
-        type: DataTypes.STRING,
-      },
-      location: {
-        allowNull: false,
-        type: DataTypes.STRING,
-      },
-      ownerId: {
+      horseId: {
         allowNull: false,
         type: DataTypes.INTEGER,
         references: {
-          model: 'owners',
+          model: 'horses',
           key: 'id',
         },
       },
-      warnings: {
-        type: DataTypes.STRING,
+      date: {
+        type: DataTypes.DATE,
       },
-      problems: {
-        type: DataTypes.STRING,
+      appointment_made: {
+        type: DataTypes.BOOLEAN,
       },
       createdAt: {
         allowNull: false,
